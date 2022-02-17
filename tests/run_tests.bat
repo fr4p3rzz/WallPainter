@@ -1,0 +1,1 @@
+clang.exe -o test.exe .\main.c ..\src\*.c  -Xlinker /subsystem:console -lSDL2main -lSDL2 -lshell32 -lws2_32 && test.exe
