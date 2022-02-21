@@ -3,6 +3,8 @@
 #include "../includes/mapping.h"
 #include <stdlib.h>
 #include <stdio.h>
+extern int p1_score;
+extern int p2_score;
 
 #define P1_POSITION x > PLAYER_1_SPAWN_X - level->cell_size && x < PLAYER_1_SPAWN_X + level->cell_size && y > PLAYER_1_SPAWN_Y - level->cell_size && y < PLAYER_1_SPAWN_Y + level->cell_size
 #define P2_POSITION x > PLAYER_2_SPAWN_X - level->cell_size && x < PLAYER_2_SPAWN_X + level->cell_size && y > PLAYER_2_SPAWN_Y - level->cell_size && y < PLAYER_2_SPAWN_Y + level->cell_size
@@ -73,4 +75,39 @@ int32_t level_create(level_t *level, int32_t *level_cells)
     level->cells = level_cells;    
 
     return 0;
+}
+
+void level_scorecount(level_t *level, int32_t cell, player_t *player)
+{
+    if(cell && player)
+    {
+        if(cell & BLOCK_WALL)
+        {
+            level->free_walls -=1;
+            if(player->id == PLAYER_1_ID)
+            {
+                p1_score += 1;
+            } 
+            else
+            {
+                p2_score += 1;
+            }
+        }
+        else if( cell & BLOCK_PLAYER1WALL) 
+        {
+            if(player->id != PLAYER_1_ID)
+            {
+                p1_score -= 1;
+                p2_score += 1;
+            }
+        }
+        else if(cell & BLOCK_PLAYER2WALL)
+        {
+            if(player->id != PLAYER_2_ID)
+            {
+                p2_score -= 1;
+                p1_score += 1;
+            }
+        }
+    }
 }

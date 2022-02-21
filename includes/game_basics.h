@@ -52,6 +52,9 @@ int32_t level_create(level_t *level, int32_t level_cells[]);
 // Move an object on the level
 int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, const float delta_y);
 
+// Update the current scores of the game
+void level_scorecount(level_t *level, int32_t cell, player_t *player);
+
 // Detect if (and which) a wall was collided
 void detect_collision(level_t *level, player_t *player, const float delta_x, const float delta_y);
 

@@ -3,9 +3,6 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
-
-
-
 /** VALUES FOR GAME */
 #define MAP_SMALL 16
 #define MAP_MEDIUM 24

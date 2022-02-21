@@ -6,11 +6,16 @@
 #include "./includes/game_tuning.h"
 #include "./includes/player_input.h"
 #include "./includes/mapping.h"
+// Score for players
+int p1_score = 0;
+int p2_score = 0;
 
 int main(int argc, char **argv)
 {
-
-    // Setting the level
+    int game = 1;
+    while(game)
+    {
+// Setting the level
     level_t level;
     srand(time(NULL)); 
 
@@ -95,6 +100,7 @@ int main(int argc, char **argv)
 
     // Game loop validation
     int running = 1;
+    int score_visual = 0;
 
     // Grid and player boxes
     SDL_Rect cell_rect = {0, 0, level.cell_size, level.cell_size};
@@ -103,7 +109,7 @@ int main(int argc, char **argv)
     coordinates_t player_1_coordinates;
     coordinates_t player_2_coordinates;
 
-    // Values for player movement
+    // Values for players movement
     float p1_delta_up = 0;
     float p1_delta_down = 0;
     float p1_delta_right = 0;
@@ -114,12 +120,9 @@ int main(int argc, char **argv)
     float p2_delta_right = 0;
     float p2_delta_left = 0;
 
-    // Values for score
-    int p1_conquered_walls = 0;
-    int p2_conquered_walls = 0;
-    int free_walls = level.free_walls;
 
 
+    // Game loop
     while(running)
     {
         SDL_Event event;
@@ -187,7 +190,46 @@ int main(int argc, char **argv)
         SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 255);
         SDL_RenderFillRect(renderer, &player_2_rect);
 
+        if(level.free_walls == 0)
+        {
+            if(p1_score > p2_score)
+            {
+                SDL_SetRenderDrawColor(renderer, player_1.color_r, player_1.color_g, player_1.color_b, 0);
+                SDL_RenderClear(renderer); 
+            }
+            else if(p1_score < p2_score)
+            {
+                SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 0);
+                SDL_RenderClear(renderer); 
+            }
+            else
+            {
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+                SDL_RenderClear(renderer); 
+            }
+            running = 0;
+            score_visual = 1;
+        }
+
         SDL_RenderPresent(renderer);
+    }
+
+    while(score_visual)
+    {
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            if(event.type == SDL_QUIT || event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                score_visual = 0;
+                game = 0;
+            }
+            if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+            {
+                score_visual = 0;
+                running = 1;
+            }
+        }
     }
 
     quit:
@@ -205,6 +247,9 @@ int main(int argc, char **argv)
             SDL_DestroyWindow(window);
         }  
     }
+    }
+
+
  
 
     SDL_Quit();
