@@ -4,8 +4,8 @@
 #include "./includes/launcher.h"
 #include "./includes/game_basics.h"
 #include "./includes/game_tuning.h"
-#include "./includes/level.h"
 #include "./includes/player_input.h"
+#include "./includes/mapping.h"
 
 int main(int argc, char **argv)
 {
@@ -25,22 +25,22 @@ int main(int argc, char **argv)
     switch (dimension)
     {
     case MAP_SMALL:
-        int32_t level_cells_small[MAP_SMALL * MAP_SMALL];
+        int32_t level_cells_small[MAP_SM_GRID];
         level_init(&level, MAP_SMALL, MAP_SMALL, CELL_DIM);
         level_create(&level, level_cells_small);
         break;
     case MAP_MEDIUM:
-        int32_t level_cells_medium[MAP_MEDIUM * MAP_MEDIUM];
+        int32_t level_cells_medium[MAP_MD_GRID];
         level_init(&level, MAP_MEDIUM, MAP_MEDIUM, CELL_DIM);
         level_create(&level, level_cells_medium);
         break;
     case MAP_LARGE:
-        int32_t level_cells_large[MAP_LARGE * MAP_LARGE];
+        int32_t level_cells_large[MAP_LG_GRID];
         level_init(&level, MAP_LARGE, MAP_LARGE, CELL_DIM);
         level_create(&level, level_cells_large);
         break;
     default:
-        int32_t level_cells_default[MAP_SMALL * MAP_SMALL];
+        int32_t level_cells_default[MAP_SM_GRID];
         level_init(&level, MAP_SMALL, MAP_SMALL, CELL_DIM);
         level_create(&level, level_cells_default);
         break;
@@ -69,30 +69,55 @@ int main(int argc, char **argv)
     }
 
     // Setting the player
-    player_t player;
-    player.movable.x = PLAYER_SPAWN_X;
-    player.movable.y = PLAYER_SPAWN_Y;
-    player.movable.width = PLAYER_WIDTH;
-    player.movable.height = PLAYER_HEIGHT;
-    player.movable.speed = PLAYER_SPEED;
-    player.color_r = 0;
-    player.color_g = 0;
-    player.color_b = 255;
+    player_t player_1;
+    player_1.id = PLAYER_1_ID;
+    player_1.Wall_color = P1;
+    player_1.movable.x = PLAYER_1_SPAWN_X;
+    player_1.movable.y = PLAYER_1_SPAWN_Y;
+    player_1.movable.width = PLAYER_WIDTH;
+    player_1.movable.height = PLAYER_HEIGHT;
+    player_1.movable.speed = PLAYER_1_SPEED;
+    player_1.color_r = PLAYER_1_RCOLOR;
+    player_1.color_g = PLAYER_1_GCOLOR;
+    player_1.color_b = PLAYER_1_BCOLOR;
 
-    //Game loop validation
+    player_t player_2;
+    player_2.id = PLAYER_2_ID;
+    player_2.Wall_color = P2;
+    player_2.movable.x = PLAYER_2_SPAWN_X;
+    player_2.movable.y = PLAYER_2_SPAWN_Y;
+    player_2.movable.width = PLAYER_WIDTH;
+    player_2.movable.height = PLAYER_HEIGHT;
+    player_2.movable.speed = PLAYER_2_SPEED;
+    player_2.color_r = PLAYER_2_RCOLOR;
+    player_2.color_g = PLAYER_2_GCOLOR;
+    player_2.color_b = PLAYER_2_BCOLOR;
+
+    // Game loop validation
     int running = 1;
 
     // Grid and player boxes
     SDL_Rect cell_rect = {0, 0, level.cell_size, level.cell_size};
-    SDL_Rect trail_rect = {0, 0, level.cell_size, level.cell_size};
-    SDL_Rect player_rect = {0, 0, player.movable.width, player.movable.height};
-    coordinates_t player_coordinates;
+    SDL_Rect player_1_rect = {0, 0, player_1.movable.width, player_1.movable.height};
+    SDL_Rect player_2_rect = {0, 0, player_2.movable.width, player_2.movable.height};
+    coordinates_t player_1_coordinates;
+    coordinates_t player_2_coordinates;
 
     // Values for player movement
-    float delta_up = 0;
-    float delta_down = 0;
-    float delta_right = 0;
-    float delta_left = 0;
+    float p1_delta_up = 0;
+    float p1_delta_down = 0;
+    float p1_delta_right = 0;
+    float p1_delta_left = 0;
+
+    float p2_delta_up = 0;
+    float p2_delta_down = 0;
+    float p2_delta_right = 0;
+    float p2_delta_left = 0;
+
+    // Values for score
+    int p1_conquered_walls = 0;
+    int p2_conquered_walls = 0;
+    int free_walls = level.free_walls;
 
 
     while(running)
@@ -104,7 +129,8 @@ int main(int argc, char **argv)
             {
                 running = 0;
             }
-            player_coordinates = movement_input(event, player, &delta_up, &delta_down, &delta_right, &delta_left);
+            player_1_coordinates = movement_input(event, player_1, &p1_delta_up, &p1_delta_down, &p1_delta_right, &p1_delta_left);
+            player_2_coordinates = movement_input(event, player_2, &p2_delta_up, &p2_delta_down, &p2_delta_right, &p2_delta_left);
         }
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -133,25 +159,33 @@ int main(int argc, char **argv)
                     SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
                     SDL_RenderFillRect(renderer, &cell_rect);
                 }
-                else if(cell_texture == BLOCK_PLAYER1WALL)
-                {
-                    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-                    SDL_RenderFillRect(renderer, &cell_rect);
-                }
                 else if(cell_texture == BLOCK_PLAYER2WALL)
                 {
-                    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                    SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 255);
+                    SDL_RenderFillRect(renderer, &cell_rect);
+                }
+                else if(cell_texture == BLOCK_PLAYER1WALL)
+                {
+                    SDL_SetRenderDrawColor(renderer, player_1.color_r, player_1.color_g, player_1.color_b, 255);
                     SDL_RenderFillRect(renderer, &cell_rect);
                 }
             }
         }
 
-        move_on_level(&level, &player.movable, player_coordinates.x, player_coordinates.y);
+        move_on_level(&level, &player_1.movable, player_1_coordinates.x, player_1_coordinates.y);
+        move_on_level(&level, &player_2.movable, player_2_coordinates.x, player_2_coordinates.y);
+        detect_collision(&level, &player_1, player_1_coordinates.x, player_1_coordinates.y);
+        detect_collision(&level, &player_2, player_2_coordinates.x, player_2_coordinates.y);
 
-        player_rect.x = player.movable.x;
-        player_rect.y = player.movable.y;
-        SDL_SetRenderDrawColor(renderer, player.color_r, player.color_g, player.color_b, 255);
-        SDL_RenderFillRect(renderer, &player_rect);
+        player_1_rect.x = player_1.movable.x;
+        player_1_rect.y = player_1.movable.y;
+        SDL_SetRenderDrawColor(renderer, player_1.color_r, player_1.color_g, player_1.color_b, 255);
+        SDL_RenderFillRect(renderer, &player_1_rect);
+
+        player_2_rect.x = player_2.movable.x;
+        player_2_rect.y = player_2.movable.y;
+        SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 255);
+        SDL_RenderFillRect(renderer, &player_2_rect);
 
         SDL_RenderPresent(renderer);
     }

@@ -6,15 +6,8 @@
 #define BLOCK_GROUND 0
 #define BLOCK_LIMIT 1
 #define BLOCK_WALL 2
-#define BLOCK_PLAYER1WALL 3
-#define BLOCK_PLAYER2WALL 4
-
-typedef struct cell{
-
-    int32_t cell_value;
-    const int8_t cell_id;
-
-} cell_t;
+#define BLOCK_PLAYER1WALL 4
+#define BLOCK_PLAYER2WALL 8
 
 typedef struct level{
 
@@ -22,6 +15,7 @@ typedef struct level{
     uint32_t rows; // Number of rows in the grid 
     int32_t cell_size; // Size in pixels of a single cell
     int32_t *cells; // Content of the level
+    int32_t free_walls; // number of unconquered walls
 
 } level_t;
 
@@ -38,6 +32,7 @@ typedef struct movable{
 typedef struct player{
     
     uint32_t id;
+    uint32_t Wall_color;
     movable_t movable;
     uint8_t color_r;
     uint8_t color_g;
@@ -56,6 +51,9 @@ int32_t level_create(level_t *level, int32_t level_cells[]);
 
 // Move an object on the level
 int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, const float delta_y);
+
+// Detect if (and which) a wall was collided
+void detect_collision(level_t *level, player_t *player, const float delta_x, const float delta_y);
 
 // Get player ID
 int movable_get_id(player_t *player);
