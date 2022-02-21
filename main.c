@@ -75,8 +75,8 @@ int main(int argc, char **argv)
     player.movable.width = PLAYER_WIDTH;
     player.movable.height = PLAYER_HEIGHT;
     player.movable.speed = PLAYER_SPEED;
-    player.color_r = 255;
-    player.color_g = 255;
+    player.color_r = 0;
+    player.color_g = 0;
     player.color_b = 255;
 
     //Game loop validation
@@ -133,6 +133,16 @@ int main(int argc, char **argv)
                     SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
                     SDL_RenderFillRect(renderer, &cell_rect);
                 }
+                else if(cell_texture == BLOCK_PLAYER1WALL)
+                {
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+                    SDL_RenderFillRect(renderer, &cell_rect);
+                }
+                else if(cell_texture == BLOCK_PLAYER2WALL)
+                {
+                    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                    SDL_RenderFillRect(renderer, &cell_rect);
+                }
             }
         }
 
@@ -140,7 +150,7 @@ int main(int argc, char **argv)
 
         player_rect.x = player.movable.x;
         player_rect.y = player.movable.y;
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, player.color_r, player.color_g, player.color_b, 255);
         SDL_RenderFillRect(renderer, &player_rect);
 
         SDL_RenderPresent(renderer);

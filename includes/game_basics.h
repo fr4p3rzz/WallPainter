@@ -6,6 +6,15 @@
 #define BLOCK_GROUND 0
 #define BLOCK_LIMIT 1
 #define BLOCK_WALL 2
+#define BLOCK_PLAYER1WALL 3
+#define BLOCK_PLAYER2WALL 4
+
+typedef struct cell{
+
+    int32_t cell_value;
+    const int8_t cell_id;
+
+} cell_t;
 
 typedef struct level{
 
