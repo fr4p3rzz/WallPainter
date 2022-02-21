@@ -119,9 +119,8 @@ int main(int argc, char **argv)
         int p1_collided = 0;
         int p2_collided = 0;
 
-        int i = 128;
-        int background = rand() % 129;
-        playMusic("assets/sounds/livinginsidethewalls.wav", SDL_MIX_MAXVOLUME);
+        int background = rand() % 256; // Random seed for ground color
+        playMusic("assets/sounds/livinginsidethewalls.wav", SDL_MIX_MAXVOLUME / 2); // Start level music
 
         // Game loop
         while(running)
@@ -139,23 +138,11 @@ int main(int argc, char **argv)
 
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderClear(renderer);
-            if(i > 0)
-            {
-                i--;
-            }
-            else if(i == 0)
-            {
-                i = 128;
-            }
-            // if(i == 5000)
-            // {
-            //     background = rand() % 129;
-            // }
 
 
-            for(uint32_t row = 0; row < level.rows; row++)
+            for(uint32_t row = 0; row < level.rows; row++) // For each row
             {
-                for(uint32_t col = 0; col < level.cols; col++)
+                for(uint32_t col = 0; col < level.cols; col++) // For each column
                 {
                     int32_t cell = level_cell(&level, col, row);
                     int32_t cell_texture = cell & 0xff;
@@ -163,9 +150,10 @@ int main(int argc, char **argv)
                     cell_rect.y = row * level.cell_size;
 
 
+                    // Check the current status of each cell and color it correclty
                     if(cell_texture == BLOCK_GROUND)
                     {
-                        SDL_SetRenderDrawColor(renderer, background, background + i, background + i, 255);
+                        SDL_SetRenderDrawColor(renderer, background, background * 0.647, background / 3, 255);
                         SDL_RenderFillRect(renderer, &cell_rect);
                     }
                     else if(cell_texture == BLOCK_LIMIT)
@@ -197,7 +185,7 @@ int main(int argc, char **argv)
             int p2_collided = detect_collision(&level, &player_2, player_2_coordinates.x, player_2_coordinates.y);
             if(p1_collided || p2_collided)
             {
-                playSound("assets/sounds/laser.wav", SDL_MIX_MAXVOLUME);
+                playSound("assets/sounds/laser.wav", SDL_MIX_MAXVOLUME / 3); // Play the score sound effect if a wall is collided and conquered
             }
 
 
@@ -212,18 +200,17 @@ int main(int argc, char **argv)
             SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 255);
             SDL_RenderFillRect(renderer, &player_2_rect);
 
-            if(level.free_walls == 0)
+            if(level.free_walls == 0) // If there are no more free walls, the game ends
             {
                 running = 0;
-                score_visual = 1;
+                score_visual = 1; // move to the score window
             }
 
             SDL_RenderPresent(renderer);
         }
+        playMusic("assets/sounds/livinginsidethewalls.wav", 0); // stops level music
         
-        endAudio();
-        
-        SDL_Surface* victory_img = (p1_score > p2_score) ? SDL_LoadBMP("assets/blue_win.bmp") : SDL_LoadBMP("assets/red_win.bmp");	
+        SDL_Surface* victory_img = (p1_score > p2_score) ? SDL_LoadBMP("assets/blue_win.bmp") : SDL_LoadBMP("assets/red_win.bmp");	// Show the correct result based on who wins
         SDL_Texture * victory_texture = SDL_CreateTextureFromSurface(renderer, victory_img);
         if(!victory_texture)
         {
@@ -239,7 +226,11 @@ int main(int argc, char **argv)
             goto quit;
         }
         SDL_Rect ctrl_rect = { 5, 400, 450, 200 };
-
+        
+        if(score_visual)
+        {
+            playSound("assets/sounds/victoryfanfare.wav", SDL_MIX_MAXVOLUME / 3);
+        }
         while(score_visual)
         {
             SDL_Event event;
@@ -299,6 +290,7 @@ int main(int argc, char **argv)
         }
     }
 
+    endAudio();
     SDL_Quit();
     return 0;
 }
