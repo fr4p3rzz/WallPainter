@@ -56,7 +56,7 @@ int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, c
 void level_scorecount(level_t *level, int32_t cell, player_t *player);
 
 // Detect if (and which) a wall was collided
-void detect_collision(level_t *level, player_t *player, const float delta_x, const float delta_y);
+int detect_collision(level_t *level, player_t *player, const float delta_x, const float delta_y);
 
 // Get player ID
 int movable_get_id(player_t *player);
