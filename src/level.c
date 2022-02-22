@@ -6,8 +6,11 @@
 extern int p1_score;
 extern int p2_score;
 
-#define P1_POSITION x > PLAYER_1_SPAWN_X - level->cell_size && x < PLAYER_1_SPAWN_X + level->cell_size && y > PLAYER_1_SPAWN_Y - level->cell_size && y < PLAYER_1_SPAWN_Y + level->cell_size
-#define P2_POSITION x > PLAYER_2_SPAWN_X - level->cell_size && x < PLAYER_2_SPAWN_X + level->cell_size && y > PLAYER_2_SPAWN_Y - level->cell_size && y < PLAYER_2_SPAWN_Y + level->cell_size
+#define P1_COORDINATES (((PLAYER_1_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_1_SPAWN_X / level->cell_size)
+#define P2_COORDINATES (((PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_2_SPAWN_X / level->cell_size)
+#define P1_POSITION (P1_COORDINATES == i)
+#define P2_POSITION (P2_COORDINATES == i)
+
 
 
 int level_init(level_t *level, const uint32_t cols, const uint32_t rows, const uint32_t cell_size)
@@ -47,6 +50,9 @@ int32_t level_create(level_t *level, int32_t *level_cells)
     }
 
     int i = 0;
+    int r = 0;
+    uint32_t p2_cell_x = PLAYER_2_SPAWN_X / level->cell_size; // cell on which the movable will end
+    uint32_t p2_cell_y = (PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size; // test for feet
     for(int x = 0; x < level->rows; x++)
     {
         for(int y = 0; y < level->cols; y++)
@@ -57,8 +63,12 @@ int32_t level_create(level_t *level, int32_t *level_cells)
             }
             else
             {
-                int r = rand() % 100;
-                if(r < 15 || r > 90  && P1_POSITION && P2_POSITION)
+                r = rand() % 100;
+                if(P1_POSITION || P2_POSITION)
+                {
+                    level_cells[i] = 0; // Create a floor cell
+                }
+                else if(r <= 15 || r >= 90)
                 {
                     level_cells[i] = D; // Create a conquerable wall
                     level->free_walls += 1; // Increase the counter of this level's conquerable walls
