@@ -12,7 +12,7 @@ FEATURES:<br>
 HOW TO INSTALL:<br>
 ##################################################<br>
 -You'll need SDL2 to run WallPainter <br>
--Once SDL is installed in your system, just execute the .exe file (windows only)<br>
+-Once SDL is installed in your system, just execute the .EXE file (windows only)<br>
 ##################################################
 
 DISCLAIMERS:<br>
