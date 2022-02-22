@@ -120,7 +120,7 @@ int main(int argc, char **argv)
         int p2_collided = 0;
 
         int background = rand() % 256; // Random seed for ground color
-        playMusic("assets/sounds/livinginsidethewalls.wav", SDL_MIX_MAXVOLUME / 2); // Start level music
+        playMusic("assets/sounds/livinginsidethewalls.wav", SDL_MIX_MAXVOLUME / 5); // Start level music
 
         // Game loop
         while(running)
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
             int p2_collided = detect_collision(&level, &player_2, player_2_coordinates.x, player_2_coordinates.y);
             if(p1_collided || p2_collided)
             {
-                playSound("assets/sounds/laser.wav", SDL_MIX_MAXVOLUME / 3); // Play the score sound effect if a wall is collided and conquered
+                playSound("assets/sounds/laser.wav", SDL_MIX_MAXVOLUME / 7); // Play the score sound effect if a wall is collided and conquered
             }
 
 
@@ -225,7 +225,7 @@ int main(int argc, char **argv)
             SDL_Log("Unable to create texture: %s", SDL_GetError());
             goto quit;
         }
-        SDL_Rect ctrl_rect = { 5, 400, 450, 200 };
+        SDL_Rect ctrl_rect = { (level.cols * level.cell_size) - 450, (level.rows * level.cell_size) - 200, 450, 200 };
         
         if(score_visual)
         {
