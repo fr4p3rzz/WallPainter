@@ -9,6 +9,12 @@ FEATURES:<br>
 # Procedural-generated levels                    #
 ##################################################
 
+HOW TO INSTALL:<br>
+##################################################
+You'll need SDL2 to run WallPainter 
+Once SDL is installed in your system, just execute the .exe file (windows only) 
+##################################################
+
 DISCLAIMERS:<br>
 This game was principally made as a study project on C language and its usage; everything inside this project is free to use, copy and distribute; Feel free to branch, update and modify this project<br> 
 And, of course, have fun :)<br>
