@@ -1,4 +1,4 @@
-Wallpainter! is a simple game for two players written in C and inspired to the '70s Arcade videogames.<br>
+WallPainter is a simple game for two players written in C and inspired to the '70s Arcade videogames.<br>
 SDL2 library was used for video and audio output, SimpleSDL2Audio by jakebesworth used for audio controls and sampling<br>
 
 FEATURES:<br>
