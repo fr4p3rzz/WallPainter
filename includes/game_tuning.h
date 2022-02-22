@@ -4,12 +4,12 @@
 #define WINDOW_HEIGHT 480
 
 /** VALUES FOR GAME */
-#define MAP_SMALL 16 // Dimension of the square matrix for small map
-#define MAP_MEDIUM 24 // Dimension of the square matrix for medium map
-#define MAP_LARGE 32 // Dimension of the square matrix for large map
-#define MAP_SM_GRID MAP_SMALL * MAP_SMALL // This value is passed to the level builder; mixing values will change the layout
-#define MAP_MD_GRID MAP_MEDIUM * MAP_MEDIUM // This value is passed to the level builder; mixing values will change the layout
-#define MAP_LG_GRID MAP_LARGE * MAP_LARGE // This value is passed to the level builder; mixing values will change the layout
+#define MAP_SMALL 16 // Dimension of the square matrix for small map. This value is passed to the level builder; mixing values will change the layout
+#define MAP_MEDIUM 24 // Dimension of the square matrix for medium map. This value is passed to the level builder; mixing values will change the layout
+#define MAP_LARGE 32 // Dimension of the square matrix for large map. This value is passed to the level builder; mixing values will change the layout
+#define MAP_SM_GRID MAP_SMALL * MAP_SMALL // this is a shortcut for memory allocating, this values should not be modified
+#define MAP_MD_GRID MAP_MEDIUM * MAP_MEDIUM // this is a shortcut for memory allocating, this values should not be modified
+#define MAP_LG_GRID MAP_LARGE * MAP_LARGE // this is a shortcut for memory allocating, this values should not be modified
 #define CELL_DIM 38 // Dimension of the single cell of the grid: change this value will affect the visual scale of the game
 #define WALLS_MIN_SPAWN_SEED 30 // Increasing this will increase the spawn rate of paintable walls (formula: x < MIN OR x > MAX)
 #define WALLS_MAX_SPAWN_SEED 85 // Decreasing this will increase the spawn rate of paintable walls (formula: x < MIN OR x > MAX)
