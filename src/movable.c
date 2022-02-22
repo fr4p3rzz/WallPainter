@@ -2,8 +2,8 @@
 #include "../includes/game_tuning.h"
 #include "../includes/mapping.h"
 
-#define PLAYER_1_AUTOHIT (player->id == PLAYER_1_ID && cell & BLOCK_PLAYER1WALL)
-#define PLAYER_2_AUTOHIT (player->id == PLAYER_2_ID && cell & BLOCK_PLAYER2WALL)
+#define PLAYER_1_AUTOHIT (player->id == PLAYER_1_ID && (cell & BLOCK_PLAYER1WALL))
+#define PLAYER_2_AUTOHIT (player->id == PLAYER_2_ID && (cell & BLOCK_PLAYER2WALL))
 
 int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, const float delta_y)
 {

@@ -8,8 +8,8 @@ extern int p2_score;
 
 #define P1_COORDINATES (((PLAYER_1_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_1_SPAWN_X / level->cell_size)
 #define P2_COORDINATES (((PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_2_SPAWN_X / level->cell_size)
-#define P1_POSITION (P1_COORDINATES == i)
-#define P2_POSITION (P2_COORDINATES == i)
+#define P1_POSITION_CURRENT (P1_COORDINATES == i)
+#define P2_POSITION_CURRENT (P2_COORDINATES == i)
 
 
 
@@ -64,11 +64,11 @@ int32_t level_create(level_t *level, int32_t *level_cells)
             else
             {
                 r = rand() % 100;
-                if(P1_POSITION || P2_POSITION)
+                if(P1_POSITION_CURRENT || P2_POSITION_CURRENT)
                 {
                     level_cells[i] = 0; // Create a floor cell
                 }
-                else if(r <= 15 || r >= 90)
+                else if((r < WALLS_MIN_SPAWN_SEED || r > WALLS_MAX_SPAWN_SEED) && r % 2 == 0 && level_cells[i-1] != (D))
                 {
                     level_cells[i] = D; // Create a conquerable wall
                     level->free_walls += 1; // Increase the counter of this level's conquerable walls

@@ -181,14 +181,12 @@ int main(int argc, char **argv)
 
             move_on_level(&level, &player_1.movable, player_1_coordinates.x, player_1_coordinates.y);
             move_on_level(&level, &player_2.movable, player_2_coordinates.x, player_2_coordinates.y);
-            int p1_collided = detect_collision(&level, &player_1, player_1_coordinates.x, player_1_coordinates.y);
-            int p2_collided = detect_collision(&level, &player_2, player_2_coordinates.x, player_2_coordinates.y);
+            p1_collided = detect_collision(&level, &player_1, player_1_coordinates.x, player_1_coordinates.y);
+            p2_collided = detect_collision(&level, &player_2, player_2_coordinates.x, player_2_coordinates.y);
             if(p1_collided || p2_collided)
             {
                 playSound("assets/sounds/laser.wav", SDL_MIX_MAXVOLUME / 7); // Play the score sound effect if a wall is collided and conquered
             }
-
-
 
             player_1_rect.x = player_1.movable.x;
             player_1_rect.y = player_1.movable.y;
