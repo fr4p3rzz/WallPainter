@@ -49,10 +49,13 @@ int32_t level_create(level_t *level, int32_t *level_cells)
         return -1;
     }
 
-    int i = 0;
-    int r = 0;
-    uint32_t p2_cell_x = PLAYER_2_SPAWN_X / level->cell_size; // cell on which the movable will end
-    uint32_t p2_cell_y = (PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size; // test for feet
+    int i = 0; // iterator for cells counting
+    int r = 0; // random value for selecting which cell create
+
+    // Coordinates where the player is spawned
+    uint32_t p2_cell_x = PLAYER_2_SPAWN_X / level->cell_size; 
+    uint32_t p2_cell_y = (PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size; 
+
     for(int x = 0; x < level->rows; x++)
     {
         for(int y = 0; y < level->cols; y++)

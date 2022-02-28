@@ -87,7 +87,13 @@ else if(player.id == PLAYER_2_ID)
         }
     }
 }
-
+else
+{
+    *delta_up = 0;
+    *delta_down = 0;
+    *delta_left = 0;
+    *delta_right = 0;
+}
 
     coordinates.x = *delta_right + *delta_left;
     coordinates.y = *delta_up + *delta_down;
