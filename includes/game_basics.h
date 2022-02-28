@@ -16,6 +16,8 @@ typedef struct level{
     int32_t cell_size; // Size in pixels of a single cell
     int32_t *cells; // Content of the level
     int32_t free_walls; // number of unconquered walls
+    int p1_score;
+    int p2_score;
 
 } level_t;
 

@@ -3,8 +3,6 @@
 #include "../includes/mapping.h"
 #include <stdlib.h>
 #include <stdio.h>
-extern int p1_score;
-extern int p2_score;
 
 #define P1_COORDINATES (((PLAYER_1_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_1_SPAWN_X / level->cell_size)
 #define P2_COORDINATES (((PLAYER_2_SPAWN_Y  + PLAYER_HEIGHT - 1) / level->cell_size) * level->cols + PLAYER_2_SPAWN_X / level->cell_size)
@@ -24,6 +22,8 @@ int level_init(level_t *level, const uint32_t cols, const uint32_t rows, const u
     level->rows = rows;
     level->cell_size = cell_size;
     level->free_walls = 0;
+    level->p1_score = 0;
+    level->p2_score = 0;
 
     return 0;
 }
@@ -99,27 +99,27 @@ void level_scorecount(level_t *level, int32_t cell, player_t *player)
             level->free_walls -=1;
             if(player->id == PLAYER_1_ID)
             {
-                p1_score += 1;
+                level->p1_score += 1;
             } 
             else
             {
-                p2_score += 1;
+                level->p2_score += 1;
             }
         }
         else if( cell & BLOCK_PLAYER1WALL) 
         {
             if(player->id != PLAYER_1_ID)
             {
-                p1_score -= 1;
-                p2_score += 1;
+                level->p1_score -= 1;
+                level->p2_score += 1;
             }
         }
         else if(cell & BLOCK_PLAYER2WALL)
         {
             if(player->id != PLAYER_2_ID)
             {
-                p2_score -= 1;
-                p1_score += 1;
+                level->p2_score -= 1;
+                level->p1_score += 1;
             }
         }
     }

@@ -8,10 +8,6 @@
 #include "./includes/mapping.h"
 #include "./includes/audio.h"
 
-// Score for players
-int p1_score = 0;
-int p2_score = 0;
-
 int main(int argc, char **argv)
 {
     int game = 1;
@@ -208,7 +204,7 @@ int main(int argc, char **argv)
         }
         playMusic("assets/sounds/livinginsidethewalls.wav", 0); // stops level music
         
-        SDL_Surface* victory_img = (p1_score > p2_score) ? SDL_LoadBMP("assets/blue_win.bmp") : SDL_LoadBMP("assets/red_win.bmp");	// Show the correct result based on who wins
+        SDL_Surface* victory_img = (level.p1_score > level.p2_score) ? SDL_LoadBMP("assets/blue_win.bmp") : SDL_LoadBMP("assets/red_win.bmp");	// Show the correct result based on who wins
         SDL_Texture * victory_texture = SDL_CreateTextureFromSurface(renderer, victory_img);
         if(!victory_texture)
         {
@@ -246,12 +242,12 @@ int main(int argc, char **argv)
                 }
             }
 
-            if(p1_score > p2_score)
+            if(level.p1_score > level.p2_score)
             {
                 SDL_SetRenderDrawColor(renderer, player_1.color_r, player_1.color_g, player_1.color_b, 0);
                 SDL_RenderClear(renderer); 
             }
-            else if(p1_score < p2_score)
+            else if(level.p1_score < level.p2_score)
             {
                 SDL_SetRenderDrawColor(renderer, player_2.color_r, player_2.color_g, player_2.color_b, 0);
                 SDL_RenderClear(renderer); 
