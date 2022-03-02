@@ -10,8 +10,8 @@
 
 int main(int argc, char **argv)
 {
-    int game = 1;
-    while(game)
+    int game_on = 1;
+    while(game_on)
     {
         // Setting the level
         level_t level;
@@ -66,29 +66,9 @@ int main(int argc, char **argv)
         }
 
         // Setting the player
-        player_t player_1;
-        player_1.id = PLAYER_1_ID;
-        player_1.Wall_color = P1;
-        player_1.movable.x = PLAYER_1_SPAWN_X;
-        player_1.movable.y = PLAYER_1_SPAWN_Y;
-        player_1.movable.width = PLAYER_WIDTH;
-        player_1.movable.height = PLAYER_HEIGHT;
-        player_1.movable.speed = PLAYER_1_SPEED;
-        player_1.color_r = PLAYER_1_RCOLOR;
-        player_1.color_g = PLAYER_1_GCOLOR;
-        player_1.color_b = PLAYER_1_BCOLOR;
-
-        player_t player_2;
-        player_2.id = PLAYER_2_ID;
-        player_2.Wall_color = P2;
-        player_2.movable.x = PLAYER_2_SPAWN_X;
-        player_2.movable.y = PLAYER_2_SPAWN_Y;
-        player_2.movable.width = PLAYER_WIDTH;
-        player_2.movable.height = PLAYER_HEIGHT;
-        player_2.movable.speed = PLAYER_2_SPEED;
-        player_2.color_r = PLAYER_2_RCOLOR;
-        player_2.color_g = PLAYER_2_GCOLOR;
-        player_2.color_b = PLAYER_2_BCOLOR;
+        player_t player_1, player_2;
+        init_player(&player_1, PLAYER_1_ID, P1, PLAYER_1_SPAWN_X, PLAYER_1_SPAWN_Y, PLAYER_1_SPEED, PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_1_RCOLOR, PLAYER_1_GCOLOR, PLAYER_1_BCOLOR);
+        init_player(&player_2, PLAYER_2_ID, P2, PLAYER_2_SPAWN_X, PLAYER_2_SPAWN_Y, PLAYER_2_SPEED, PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_2_RCOLOR, PLAYER_2_GCOLOR, PLAYER_2_BCOLOR);
 
         // Game loop validation
         int running = 1;
@@ -233,7 +213,7 @@ int main(int argc, char **argv)
                 if(event.type == SDL_QUIT || event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 {
                     score_visual = 0;
-                    game = 0;
+                    game_on = 0;
                 }
                 if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
                 {

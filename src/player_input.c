@@ -1,6 +1,20 @@
 #include "../includes/player_input.h"
 #include "../includes/game_tuning.h"
 
+void init_player(player_t* player, uint32_t ID, uint32_t wall_color, float x, float y, float speed, uint32_t height, uint32_t width, uint8_t color_r, uint8_t color_g, uint8_t color_b)
+{
+    player->id = ID;
+    player->wall_color = wall_color;
+    player->movable.x = x;
+    player->movable.y = y;
+    player->movable.speed = speed;
+    player->movable.height = height;
+    player->movable.width = width;
+    player->color_r = color_r;
+    player->color_g = color_g;
+    player->color_b = color_b;
+}
+
 coordinates_t movement_input(SDL_Event event, player_t player, float* delta_up, float* delta_down, float* delta_right, float* delta_left)
 {
     coordinates_t coordinates;

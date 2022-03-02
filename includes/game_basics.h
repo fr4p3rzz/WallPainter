@@ -34,7 +34,7 @@ typedef struct movable{
 typedef struct player{
     
     uint32_t id;
-    uint32_t Wall_color;
+    uint32_t wall_color;
     movable_t movable;
     uint8_t color_r;
     uint8_t color_g;
@@ -68,3 +68,6 @@ float movable_get_x(player_t *player);
 
 // Get current player Y
 float movable_get_y(player_t *player);
+
+// Initialize a player with giver properties
+void init_player(player_t* player, uint32_t ID, uint32_t wall_color, float x, float y, float speed, uint32_t height, uint32_t width, uint8_t color_r, uint8_t color_g, uint8_t color_b);

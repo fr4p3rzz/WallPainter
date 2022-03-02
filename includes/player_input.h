@@ -8,5 +8,7 @@ typedef struct coordinates{
     float y;
 } coordinates_t;
 
+
 // Takes the player movement input
 coordinates_t movement_input(SDL_Event event, player_t player, float* delta_up, float* delta_down, float* delta_right, float* delta_left);
+

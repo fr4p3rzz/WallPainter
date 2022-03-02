@@ -160,7 +160,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
         {
             if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
             {
-                level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                 level_scorecount(level, cell, player);    
                 collided = 1; 
             }
@@ -170,7 +170,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
                 cell = level_cell(level, cell_x, cell_y);
                 if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
                 {
-                    level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                    level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                     level_scorecount(level, cell, player);
                     collided = 1; 
                 }
@@ -188,7 +188,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
         {
             if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
             {
-                level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                 level_scorecount(level, cell, player);
                 collided = 1; 
             }
@@ -198,7 +198,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
                 cell = level_cell(level, cell_x, cell_y);
                 if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
                 {
-                    level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                    level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                     level_scorecount(level, cell, player);
                     collided = 1; 
                 }
@@ -217,7 +217,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
         {
             if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT))
             {
-                level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                 level_scorecount(level, cell, player);
                 collided = 1; 
             }
@@ -227,7 +227,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
                 cell = level_cell(level, cell_x, cell_y);
                 if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
                 {
-                    level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                    level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                     level_scorecount(level, cell, player);
                     collided = 1; 
                 }
@@ -246,7 +246,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
         {
             if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT))
             {
-                level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                 level_scorecount(level, cell, player);
                 collided = 1; 
             }
@@ -256,7 +256,7 @@ int detect_collision(level_t *level, player_t *player, const float delta_x, cons
                 cell = level_cell(level, cell_x, cell_y);
                 if (cell & BLOCK_MASK_UNWALKABLE && !(cell & BLOCK_LIMIT)) // collision with paintable wall!
                 {
-                    level->cells[cell_y * level->cols + cell_x] = player->Wall_color;
+                    level->cells[cell_y * level->cols + cell_x] = player->wall_color;
                     level_scorecount(level, cell, player);
                     collided = 1; 
                 }

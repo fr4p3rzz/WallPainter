@@ -3,18 +3,18 @@
 
 int check_click_in_rect(int x, int y, SDL_Rect *rect)
 {
-    /* Check X coordinate is within rectangle range */
+    // Check X coordinate is within rectangle range 
     if (x >= rect->x && x < (rect->x + rect->w))
     {
-        /* Check Y coordinate is within rectangle range */
+        // Check Y coordinate is within rectangle range 
         if (y >= rect->y && y < (rect->y + rect->h))
         {
-            /* X and Y is inside the rectangle */
+            // X and Y is inside the rectangle 
             return 1;
         }
     }
 
-    /* X or Y is outside the rectangle */
+    // X or Y is outside the rectangle 
     return 0;
 }
 
