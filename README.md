@@ -17,11 +17,11 @@ HOW TO INSTALL:<br>
 
 SCREENSHOTS:<br>
 ##################################################<br>
-[![screenshot1.png](https://i.postimg.cc/pXhPjt4w/screenshot1.png)](https://postimg.cc/zVNmm4J7)
+[![ss1.png](https://i.postimg.cc/prgrjVZd/ss1.png)](https://postimg.cc/CnswTg9y)
 ----------
-[![screenshot2.png](https://i.postimg.cc/fTGDjrhJ/screenshot2.png)](https://postimg.cc/9rY6c10h)
+[![ss2.png](https://i.postimg.cc/jq9Lmvbr/ss2.png)](https://postimg.cc/fkcz0cyH)
 ----------
-[![screenshot3.png](https://i.postimg.cc/2SnmH7zT/screenshot3.png)](https://postimg.cc/gxcfjRL6)
+[![ss3.png](https://i.postimg.cc/RVHNBfSJ/ss3.png)](https://postimg.cc/tY9XdsV9)
 ##################################################
 
 DISCLAIMERS:<br>
