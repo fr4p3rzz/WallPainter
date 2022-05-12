@@ -21,7 +21,7 @@ SCREENSHOTS:<br>
 ----------
 [![ss2.png](https://i.postimg.cc/jq9Lmvbr/ss2.png)](https://postimg.cc/fkcz0cyH)
 ----------
-[![ss3.png](https://i.postimg.cc/RVHNBfSJ/ss3.png)](https://postimg.cc/tY9XdsV9)
+[![ss3.png](https://i.postimg.cc/Gp7y2CZ4/ss3.png)](https://postimg.cc/3yGRSPrh)
 ##################################################
 
 DISCLAIMERS:<br>
